@@ -22,7 +22,7 @@ jobs:
         run: sudo apt-get install graphviz
 
       - name: Generate SVG diagrams
-        run: python3 generate_diagrams.py
+        run: python3 app.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

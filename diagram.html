@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Cloud Network Connectivity Tutorial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #202124;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 24px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        h3 {
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+        .example {
+            background-color: #f1f3f4;
+            padding: 15px;
+            border-left: 4px solid #4285f4;
+            margin-bottom: 20px;
+        }
+        .example p {
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: #fff3cd;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 20px;
+        }
+        .note p {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .diagram {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .diagram img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Understanding Google Cloud Network Connectivity Products</h1>
+
+    <h2>Introduction</h2>
+    <p>This tutorial will guide you through Google Cloud's network connectivity products: <strong>VPC Peering</strong>, <strong>Cloud VPN</strong>, and <strong>Cloud Interconnect</strong>. These tools are essential for connecting Virtual Private Cloud (VPC) networks, on-premises networks, and other cloud environments securely and efficiently.</p>
+
+    <h2>1. VPC Peering</h2>
+    <p><strong>VPC Peering</strong> allows private connectivity between two VPC networks, even if they belong to different projects or organizations. This is achieved using private RFC 1918 IP addresses.</p>
+
+    <h3>Key Points:</h3>
+    <ul>
+        <li><strong>Non-overlapping Subnets</strong>: The subnet ranges in the peered VPCs must not overlap.</li>
+        <li><strong>Firewall Rules</strong>: Each VPC network has firewall rules that control traffic between the networks.</li>
+        <li><strong>Configuration</strong>: Network administrators must configure a VPC peering request for the connection to be established.</li>
+    </ul>
+
+    <div class="example">
+        <h3>Example:</h3>
+        <p>In the provided diagram, two VPC networks from different projects and organizations are connected via VPC peering. The subnets <code>10.0.1.0/24</code> and <code>10.0.2.0/24</code> do not overlap, satisfying the requirement for peering.</p>
+        <div class="diagram">
+            <img src="vpc-peering.svg" alt="VPC Peering Diagram">
+        </div>
+    </div>
+
+    <h2>2. Cloud VPN</h2>
+    <p><strong>Cloud VPN</strong> securely connects your on-premises network to your Google Cloud VPC network using IPsec VPN tunnels. This is ideal for low-volume data connections.</p>
+
+    <h3>Key Points:</h3>
+    <ul>
+        <li><strong>Encryption</strong>: Traffic is encrypted by one VPN gateway and decrypted by another, ensuring data security over the public internet.</li>
+        <li><strong>SLA</strong>: Cloud VPN offers a 99.9% uptime SLA for classic VPN and 99.99% for high availability (HA) VPN.</li>
+        <li><strong>Gateway Types</strong>:
+            <ul>
+                <li><strong>Classic VPN</strong>: Single interface with one external IP address.</li>
+                <li><strong>HA VPN</strong>: Two interfaces with two external IP addresses for redundancy.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="example">
+        <h3>Configuration:</h3>
+        <p><strong>Tunnels</strong>: Two VPN tunnels are required to connect the on-premises VPN gateway to the Cloud VPN gateway.</p>
+        <p><strong>MTU Consideration</strong>: The maximum transmission unit (MTU) for the on-premises VPN gateway should not exceed 1,460 bytes due to packet encapsulation.</p>
+    </div>
+
+    <div class="example">
+        <h3>Example:</h3>
+        <p>The diagram illustrates a classic VPN connection between a VPC network with subnets in <code>us-east1</code> and <code>us-west1</code> and an on-premises network. The Cloud VPN gateway and on-premises VPN gateway are connected via two VPN tunnels.</p>
+        <div class="diagram">
+            <img src="cloud-vpn.svg" alt="Cloud VPN Diagram">
+        </div>
+    </div>
+
+    <h2>3. Cloud Interconnect</h2>
+    <p><strong>Cloud Interconnect</strong> provides high-speed, dedicated connections between your on-premises network and Google Cloud. It comes in two flavors: <strong>Dedicated Interconnect</strong> and <strong>Partner Interconnect</strong>.</p>
+
+    <h3>Key Points:</h3>
+    <ul>
+        <li><strong>Dedicated Interconnect</strong>: Direct connection to a Google co-location facility, supporting 10 Gbps or 100 Gbps circuits.</li>
+        <li><strong>Partner Interconnect</strong>: Connection through a service provider, suitable for lower bandwidth requirements (starting from 50 Mbps).</li>
+        <li><strong>BGP Routing</strong>: Routes are exchanged between the Cloud Router and the on-premises router using BGP.</li>
+    </ul>
+
+    <div class="example">
+        <h3>Example:</h3>
+        <p>In the diagram, a cross-connect is provisioned between the Google network and an on-premises router in a co-location facility. BGP sessions are configured to exchange routes, allowing traffic to flow between the on-premises network and Google Cloud resources.</p>
+        <div class="diagram">
+            <img src="cloud-interconnect.svg" alt="Cloud Interconnect Diagram">
+        </div>
+    </div>
+
+    <h2>4. High Availability (HA) VPN</h2>
+    <p><strong>HA VPN</strong> is a high-availability Cloud VPN solution that ensures 99.99% service availability.</p>
+
+    <h3>Key Points:</h3>
+    <ul>
+        <li><strong>Redundancy</strong>: Requires two or four tunnels for full redundancy.</li>
+        <li><strong>Dynamic Routing</strong>: HA VPN tunnels must use BGP for dynamic routing.</li>
+        <li><strong>Configurations</strong>:
+            <ul>
+                <li><strong>HA VPN to Peer VPN Devices</strong>: Connects to two separate peer VPN devices.</li>
+                <li><strong>HA VPN to AWS Virtual Private Gateway</strong>: Connects to AWS using a transit gateway or virtual private gateway.</li>
+                <li><strong>HA VPN to HA VPN</strong>: Connects two Google Cloud VPC networks using HA VPN gateways.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="example">
+        <h3>Example:</h3>
+        <p>The diagram shows an HA VPN gateway connected to two peer devices, each with its own IP address. This configuration provides redundancy and failover, ensuring high availability.</p>
+        <div class="diagram">
+            <img src="ha-vpn.svg" alt="HA VPN Diagram">
+        </div>
+    </div>
+
+    <h2>Conclusion</h2>
+    <p>Understanding and configuring Google Cloud's network connectivity products—VPC Peering, Cloud VPN, and Cloud Interconnect—is crucial for building secure, scalable, and high-performance cloud infrastructures. Each product offers unique features and benefits, making them suitable for different use cases and requirements.</p>
+
+    <div class="note">
+        <p>For further details, refer to the official Google Cloud documentation on <a href="https://cloud.google.com/vpc/docs/vpc-peering" target="_blank">VPC Peering</a>, <a href="https://cloud.google.com/vpn/docs/concepts/overview" target="_blank">Cloud VPN</a>, and <a href="https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview" target="_blank">Cloud Interconnect</a>.</p>
+    </div>
+
+</body>
+</html>

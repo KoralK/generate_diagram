@@ -1,0 +1,10 @@
+
+digraph G {
+    rankdir=LR;
+    node [shape=box, style=rounded, fillcolor="#dae8fc", color="#6c8ebf"];
+
+    VPC [label="Google Cloud VPC\nSubnets: us-east1, us-west1"];
+    OnPrem [label="On-Premises Network"];
+
+    VPC -> OnPrem [label="IPsec VPN Tunnel", color="#333", fontcolor="#333"];
+}

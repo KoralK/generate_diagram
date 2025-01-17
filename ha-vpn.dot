@@ -1,0 +1,12 @@
+
+digraph G {
+    rankdir=LR;
+    node [shape=box, style=rounded, fillcolor="#dae8fc", color="#6c8ebf"];
+
+    HA_VPN [label="HA VPN Gateway"];
+    Peer1 [label="Peer Device 1"];
+    Peer2 [label="Peer Device 2"];
+
+    HA_VPN -> Peer1 [label="Tunnel 1", color="#333", fontcolor="#333"];
+    HA_VPN -> Peer2 [label="Tunnel 2", color="#333", fontcolor="#333"];
+}

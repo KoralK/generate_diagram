@@ -1,0 +1,10 @@
+
+digraph G {
+    rankdir=LR; // Left-to-right layout
+    node [shape=box, style=rounded, fillcolor="#dae8fc", color="#6c8ebf"];
+
+    VPC_A [label="VPC Network A\nSubnet: 10.0.1.0/24"];
+    VPC_B [label="VPC Network B\nSubnet: 10.0.2.0/24"];
+
+    VPC_A -> VPC_B [label="VPC Peering", color="#333", fontcolor="#333"];
+}
