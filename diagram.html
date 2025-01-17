@@ -73,6 +73,33 @@
             max-width: 100%;
             height: auto;
         }
+        .quiz-link {
+            display: block; /* Make the link a block element for full width */
+            text-align: center; /* Center the content */
+            margin: 30px auto; /* Add margin and center it */
+            padding: 15px; /* Space around link content */
+            background-color: #e8f0fe; /* Light background */
+            border: 1px solid #b3c3e6; /* Light border */
+            border-radius: 8px; /* Rounded corners */
+            max-width: 500px; /* Limit width */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+            transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition */
+            text-decoration: none; /* Remove default underline */
+            color: #333; /* Dark text color */
+        }
+        .quiz-link:hover {
+            transform: translateY(-2px); /* Move up slightly */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Increased shadow */
+            background-color: #d9e6f7; /* Lighten on hover */
+        }
+
+        .quiz-link img {
+            display: block; /* Make image a block so it's centered */
+            margin: 0 auto 10px auto; /* Center image and add margin below */
+            width: 60px; /* Set the image width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
     </style>
 </head>
 <body>
@@ -177,6 +204,10 @@
     <div class="note">
         <p>For further details, refer to the official Google Cloud documentation on <a href="https://cloud.google.com/vpc/docs/vpc-peering" target="_blank">VPC Peering</a>, <a href="https://cloud.google.com/vpn/docs/concepts/overview" target="_blank">Cloud VPN</a>, and <a href="https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview" target="_blank">Cloud Interconnect</a>.</p>
     </div>
-
+  <!-- Link to Quiz -->
+<a href="https://<your-github-username>.github.io/<your-repo-name>" class="quiz-link">
+      <img src="quiz-icon.png" alt="Quiz Icon">  
+      Take the Quiz!
+    </a>
 </body>
 </html>
